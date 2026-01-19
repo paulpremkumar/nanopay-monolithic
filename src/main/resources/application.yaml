@@ -1,0 +1,26 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/users
+    username: postgres
+    password: root
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update    # "create", "update", "validate", or "none" per your need
+    show-sql: true        # logs SQL in console
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+  application:
+    name: payeasy
+server:
+  port: 8083
+#logging:
+#  level:
+#    org.springframework: DEBUG
+#    com.auth: DEBUG
+jwt:
+  secret: Zm9vYmFyYmF6cXV4c3RyaW5nMTIzNDU2Nzg5MGFiY2RlZmdoaWprbG1ub3BxcnN0dXZ3eHl6MTIzNA==
+  expirationMs: 3600000
