@@ -1,7 +1,7 @@
 package com.nanopay.payeasy.user.controller;
 
 
-import com.nanopay.payeasy.common.ApiResponse;
+import com.nanopay.payeasy.common.response.ApiResponse;
 import com.nanopay.payeasy.user.DTO.UserRequestDto;
 import com.nanopay.payeasy.user.DTO.UserResponseDto;
 import com.nanopay.payeasy.user.service.UserService;
@@ -9,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.http.HttpResponse;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -34,6 +33,7 @@ public class UserController {
     }
     @GetMapping("/getUserById/{id}")
     public ResponseEntity<ApiResponse<Boolean, String, UserResponseDto>> getUserById(@PathVariable Long id){
+       System.out.println("getUserById id="+id);
         UserResponseDto user=this.userService.getUserById(id);
         ApiResponse< Boolean, String, UserResponseDto> response= new ApiResponse<Boolean, String, UserResponseDto>(true,"User Data available",user);
         return ResponseEntity.ok(response);

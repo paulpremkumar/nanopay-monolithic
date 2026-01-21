@@ -15,6 +15,17 @@ spring:
 
   application:
     name: payeasy
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: paulprem.kumar92@gmail.com
+    password: hoor wqya cdam fkkv
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
 server:
   port: 8083
 #logging:

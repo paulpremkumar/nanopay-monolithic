@@ -1,5 +1,6 @@
 package com.nanopay.payeasy.auth.service;
 import com.nanopay.payeasy.auth.DTO.UserClient;
+import com.nanopay.payeasy.common.exception.InvalidRequestException;
 import com.nanopay.payeasy.user.DTO.UserResponseDto;
 import org.springframework.stereotype.Service;
 import com.nanopay.payeasy.user.service.UserService;
@@ -10,14 +11,17 @@ public class AuthService {
     public AuthService(UserService userService){
         this.userService = userService;
     }
-    public UserClient verifyUserEmail(String email){
-        // System.out.println(user);
-        // 🔴 Replace with DB / User Service check
-//        if (!email.equals(user.getEmail()) && !email.equals(user.getMobile())) {
-//            throw new RuntimeException("Invalid Email id or mobile number");
-//        }
+    public UserClient verifyUserEmailOrMobile(String identifier){
+        if (identifier == null || identifier.isBlank()) {
+            throw new InvalidRequestException("Identifier (email or mobile) is required");
+        }
+       if(identifier.contains("@")){
+           return mapToUserClient(this.userService.getUserByEmail(identifier));
+       }else{
+           return mapToUserClient(this.userService.getUserByMobile(identifier));
+       }
 
-        return mapToUserClient(this.userService.getUserByEmail(email));
+
     }
     public UserClient mapToUserClient(UserResponseDto dto) {
         UserClient client = new UserClient();

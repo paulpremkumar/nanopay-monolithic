@@ -1,4 +1,4 @@
-package com.nanopay.payeasy.common;
+package com.nanopay.payeasy.common.response;
 
 import lombok.Data;
 

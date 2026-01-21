@@ -25,7 +25,8 @@ public class AuthController {
     // LOGIN → TOKEN
     @PostMapping("/login")
     public LoginResponse login(@RequestBody LoginRequest request) {
-        UserClient user=this.authService.verifyUserEmail(request.username);
+        UserClient user=this.authService.verifyUserEmailOrMobile(request.getIdentifier());
+
         List<String> roles = List.of("ROLE_ADMIN");
         String token = jwtProvider.generateToken(user.getMobile(), roles);
 

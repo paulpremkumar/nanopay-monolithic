@@ -1,5 +1,6 @@
 package com.nanopay.payeasy.user.service;
 
+import com.nanopay.payeasy.common.exception.ResourceNotFoundException;
 import com.nanopay.payeasy.user.DTO.UserRequestDto;
 import com.nanopay.payeasy.user.DTO.UserResponseDto;
 import com.nanopay.payeasy.user.entity.UserEntity;
@@ -49,11 +50,15 @@ public class UserServiceImplementation implements UserService {
         this.userRepository.deleteById(id);
     }
     public UserResponseDto getUserByMobile(String mobile){
-        UserEntity user = this.userRepository.findByMobile(mobile);
+        UserEntity user = this.userRepository.findByMobile(mobile).orElseThrow(() ->
+                new ResourceNotFoundException("User not found with mobile: " + mobile)
+        );
         return toDto(user);
     }
     public UserResponseDto getUserByEmail(String email){
-        UserEntity user = this.userRepository.findByEmail(email);
+        UserEntity user = this.userRepository.findByEmail(email).orElseThrow(() ->
+                new ResourceNotFoundException("User not found with email: " + email)
+        );
         return toDto(user);
     }
     private UserResponseDto toDto(UserEntity user){

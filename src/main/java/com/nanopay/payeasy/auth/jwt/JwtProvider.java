@@ -42,6 +42,17 @@ public class JwtProvider {
                     .parseClaimsJws(token)
                     .getBody();
         }
+    public boolean isTokenValid(String token) {
+        try {
+            Jwts.parserBuilder()
+                    .setSigningKey(signingKey)
+                    .build()
+                    .parseClaimsJws(token);
+            return true;
+        } catch (JwtException ex) {
+            return false;
+        }
+    }
 
         /** Helper methods */
         public String extractUsername(String token) {
