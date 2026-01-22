@@ -3,6 +3,7 @@ package com.nanopay.payeasy.config;
 import com.nanopay.payeasy.gateway.AuthFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.web.SecurityFilterChain;
@@ -27,7 +28,9 @@ public class SecurityConfig {
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/auth/login", "/auth/register").permitAll() // public endpoints
+                                .requestMatchers("/auth/**").permitAll()
+//                        .requestMatchers(HttpMethod.GET, "/auth").permitAll()
+//                        .requestMatchers("/auth","/auth/login", "/auth/register").permitAll() // public endpoints
                         .anyRequest().authenticated() // all other endpoints require auth
                 )
                 .addFilterBefore(authFilter,

@@ -68,5 +68,28 @@ public class EmailNotificationService {
             throw new RuntimeException("Failed to send email", e);
         }
     }
+
+    public void sendVerificationEmail(String name,String otp,String email){
+     Context context=new Context();
+     context.setVariable("name",name);
+     context.setVariable("otp",otp);
+     String htmlBody= templateEngine.process("verify-otp",context);
+     try
+     {
+         MimeMessage message = mailSender.createMimeMessage();
+         MimeMessageHelper helper =
+                 new MimeMessageHelper(message, true, "UTF-8");
+
+         helper.setTo(email);
+         helper.setSubject("NanoPay - Verification Code");
+         helper.setText(htmlBody, true); // HTML
+
+         mailSender.send(message);
+
+     } catch (MessagingException e){
+         throw new RuntimeException("Failed to send email", e);
+
+     }
+    }
 }
 

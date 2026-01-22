@@ -28,10 +28,10 @@ spring:
             enable: true
 server:
   port: 8083
-#logging:
-#  level:
-#    org.springframework: DEBUG
-#    com.auth: DEBUG
+logging:
+  level:
+    org.springframework.security: DEBUG
+    org.springframework.web: DEBUG
 jwt:
   secret: Zm9vYmFyYmF6cXV4c3RyaW5nMTIzNDU2Nzg5MGFiY2RlZmdoaWprbG1ub3BxcnN0dXZ3eHl6MTIzNA==
   expirationMs: 3600000
